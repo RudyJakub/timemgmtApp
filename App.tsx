@@ -1,19 +1,10 @@
 import React, {useRef} from 'react'
-import {
-  SafeAreaView,
-  ScrollView,
-  Text,
-  StyleSheet,
-  View,
-  Animated,
-  useWindowDimensions,
-} from 'react-native'
+import { SafeAreaView, ScrollView, Text, StyleSheet, View, Animated, useWindowDimensions } from 'react-native'
+import TodoPage from './components/todoPage';
 
-const Pages = {
-  
-}
+const pages: React.FC[] = [TodoPage, TodoPage, TodoPage]
 
-const App = () => {
+const App: React.FC = () => {
   const scrollX = useRef(new Animated.Value(0)).current
   const {width: windowWidth} = useWindowDimensions()
 
@@ -34,14 +25,14 @@ const App = () => {
             },
           ], {useNativeDriver: false})}
           scrollEventThrottle={1}>
-          {[1, 2, 3].map((pages, pageIndex) => {
+          {pages.map((page, pageIndex) => {
             return (
-              <View style={{width: windowWidth, height: 100}} key={pageIndex}>
-                <View style={{ marginLeft: 40, marginRight: 40 }}>               
-                  <Text>Hello</Text>
+              <View style={{width: windowWidth, height: 600}} key={pageIndex}>
+                <View style={{ marginLeft: 30, marginRight: 30 }}>               
+                  { React.createElement(page) }
                 </View>
               </View>
-            );
+            )
           })}
         </ScrollView>
       </View>
@@ -56,7 +47,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   scrollContainer: {
-    height: 300,
+    height: 600,
     alignItems: 'center',
     justifyContent: 'center',
   }
